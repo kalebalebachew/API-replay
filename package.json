@@ -5,8 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["api","http"],
+  "author": "Kaleb Alebachew",
   "license": "ISC",
   "description": "",
   "dependencies": {
