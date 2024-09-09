@@ -3,7 +3,7 @@ import {
   getFailedRequests,
   removeRequestFromQueue,
   writeFailedRequestsToFile
-} from "../storage/fileStorage.js";
+} from '../../storages/fileStorage.js'
 import logger from '../../helpers/logger.js';
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));

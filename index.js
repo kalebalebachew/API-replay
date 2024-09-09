@@ -1,11 +1,12 @@
 import express from "express";
-import { requestReplayMiddleware } from "./src/middlewares/replayRequest.js";
+export { requestReplayMiddleware } from './src/middlewares/replayRequest.js'
+export { replayFailedRequests } from './src/services/replayService.js'
 import logger from "./helpers/logger.js";
 
 const app = express();
 
 app.use(express.json());
-app.use(requestReplayMiddleware);
+// app.use(requestReplayMiddleware);
 
 app.post("/api/some-endpoint", (req, res) => {
   if (Math.random() > 0.5) {

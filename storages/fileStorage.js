@@ -16,7 +16,7 @@ const ensureDirectoryExists = () => {
   }
 };
 
-const readFailedRequestsFromFile = () => {
+export const readFailedRequestsFromFile = () => {
   try {
     ensureDirectoryExists();
     if (!fs.existsSync(filePath)) {
@@ -34,7 +34,7 @@ const readFailedRequestsFromFile = () => {
   }
 };
 
-const writeFailedRequestsToFile = (requests) => {
+export const writeFailedRequestsToFile = (requests) => {
   try {
     ensureDirectoryExists();
     fs.writeFileSync(filePath, JSON.stringify(requests, null, 2));
