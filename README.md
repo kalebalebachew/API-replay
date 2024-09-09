@@ -18,7 +18,7 @@ npm install request-replay-middleware
 ### capturing failed requests
 ``` javascript
 import express from 'express';
-import { requestReplayMiddleware, replayFailedRequests } from 'request-replay-middleware';
+import { requestReplayMiddleware, replayFailedRequests } from 'api-replay';
 
 const app = express();
 
@@ -47,7 +47,7 @@ app.listen(PORT, () => {
 ```
 ### handling retry
 ``` javascript
-import { replayFailedRequests } from 'request-replay-middleware';
+import { replayFailedRequests } from 'api-replay';
 
 // Manually trigger replay of failed requests
 replayFailedRequests();
