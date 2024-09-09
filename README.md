@@ -13,7 +13,7 @@ This package provides an Express middleware to capture failed requests and retry
 Install the package via npm:
 
 ```bash
-npm install request-replay-middleware
+npm install api-replay
 ```
 ### capturing failed requests
 ``` javascript
