@@ -1,26 +1,43 @@
-import axios from 'axios';
-import { getFailedRequests, removeRequestFromQueue } from '../storage/fileStorage.js';
-import { logger } from '../helpers/logger.js';
+import axios from "axios";
+import {
+  getFailedRequests,
+  removeRequestFromQueue,
+  writeFailedRequestsToFile
+} from "../storage/fileStorage.js";
+import logger from '../../helpers/logger.js';
+
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const retryRequest = async (request, delayMs) => {
+  if (request.retries >= 3) {
+    logger.error(`Max retries reached for request to ${request.url}. Removing from queue.`);
+    removeRequestFromQueue(request);
+    return;
+  }
+
+  try {
+    await axios({
+      method: request.method,
+      url: `http://localhost:8000${request.url}`,
+      headers: request.headers,
+      data: request.body,
+    });
+
+    logger.info(`Successfully replayed request to ${request.url}`);
+    removeRequestFromQueue(request);
+  } catch (error) {
+    logger.error(`Failed to replay request to ${request.url}: ${error.message}`);
+    request.retries += 1;
+    writeFailedRequestsToFile(getFailedRequests()); 
+    await delay(delayMs);
+    await retryRequest(request, delayMs * 2); 
+  }
+};
 
 export const replayFailedRequests = async () => {
-    const failedRequests = getFailedRequests(); 
-  
-    for (const request of failedRequests) {
-      try {
-        await axios({
-          method: request.method,
-          url: `http://localhost:8000${request.url}`, // Replay on the local server
-          headers: request.headers,
-          data: request.body,
-        });
-        
-        // If successful, log the success and remove the request from the queue
-        logger.info(`Successfully replayed request to ${request.url}`);
-        removeRequestFromQueue(request);
+  const failedRequests = getFailedRequests();
 
-      } catch (error) {
-        logger.error(`Failed to replay request: ${error.message}`);
-        removeRequestFromQueue(request); 
-      }
-    }
+  for (const request of failedRequests) {
+    await retryRequest(request, 1000); 
+  }
 };
