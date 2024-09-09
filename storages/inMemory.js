@@ -8,12 +8,13 @@ export const storeFailedRequest = async (req) => {
     body: req.body,
     timestamp: Date.now(),
   };
+  
+  console.log(`Storing failed request for retry: ${req.method} ${req.originalUrl}`);
+
   requestQueue.push(requestData);
 };
 
-export const getFailedRequests = () => {
-  return requestQueue;
-};
+export const getFailedRequests = () => requestQueue;
 
 export const removeRequestFromQueue = (requestData) => {
   requestQueue = requestQueue.filter(req => req !== requestData);
