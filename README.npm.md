@@ -1,4 +1,4 @@
-# API Replay Middleware
+# Replay API
 
 A simple middleware for retrying failed API requests.
 
