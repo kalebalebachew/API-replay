@@ -12,13 +12,13 @@ This package provides an Express middleware to capture failed requests and retry
 Install the package via npm:
 
 ```bash
-npm install api-replay
+npm install request-replay
 ```
 ### Example Usage
 #### Applying the middleware
 - Apply the middleware globally
 ``` javascript
-import { requestReplayMiddleware } from 'api-replay';
+import { requestReplayMiddleware } from 'request-replay';
 
 app.use(requestReplayMiddleware);
 
@@ -31,7 +31,7 @@ app.post('/api/test-endpoint', requestReplayMiddleware, (req, res) => {
 ```
 #### Replaying failed requests
 ``` javascript
-import { replayFailedRequests } from 'api-replay';
+import { replayFailedRequests } from 'request-replay';
 
 replayFailedRequests({ retryLimit: 5 }); // you should configure your retry limit tho
 ```
