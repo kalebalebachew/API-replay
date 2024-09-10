@@ -15,42 +15,19 @@ Install the package via npm:
 ```bash
 npm install api-replay
 ```
-### capturing failed requests
-``` javascript
-import express from 'express';
-import { requestReplayMiddleware, replayFailedRequests } from 'api-replay';
-
-const app = express();
-
-app.use(express.json());
-app.use(requestReplayMiddleware);
-
-app.post('/api/endpoint', (req, res) => {
-  // Simulate a request failure
-  if (Math.random() > 0.5) {
-    res.status(500).send('Simulated failure');
-  } else {
-    res.status(200).send('Request succeeded');
-  }
-});
-
-// Periodically replay failed requests (every 10 minutes)
-setInterval(() => {
-  replayFailedRequests();
-}, 600000);
-
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-```
-### handling retry
+### Example Usage
 ``` javascript
 import { replayFailedRequests } from 'api-replay';
 
-// Manually trigger replay of failed requests
-replayFailedRequests();
+(async () => {
+  await replayFailedRequests({
+    baseURL: "https://your-api.com", // The base URL for your server
+    retryLimit: 5,                    // Optional retry limit
+    customHandler: axios,             // Optional custom request handler (e.g., axios)
+  });
+})();
+
 
 ```
+
 
