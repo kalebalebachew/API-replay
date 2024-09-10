@@ -3,6 +3,7 @@
   "name": "api-replay",
   "version": "1.0.0",
   "main": "index.js",
+  "readme": "README.npm.md",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
