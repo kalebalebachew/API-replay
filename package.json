@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "replay-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "readme": "README.npm.md",
   "scripts": {
