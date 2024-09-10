@@ -44,6 +44,6 @@ replayFailedRequests({ retryLimit: 5 }); // you should configure your retry limi
 - Push to the branch (git push origin feature-branch).
 - Open a Pull Request.
 ## License
-- This project is licensed under the GNU General Public License v3.0. See the LICENSE file for details.
+- This project is licensed under the GNU General Public License v3.0. See the [LICENSE](https://github.com/kalebalebachew/API-replay?tab=GPL-3.0-1-ov-file) file for details.
 
 
