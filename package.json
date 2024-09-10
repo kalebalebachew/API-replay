@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "replay-api",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "readme": "README.npm.md",
   "scripts": {
@@ -12,7 +12,6 @@
     "http",
     "request",
     "request-replay"
-
   ],
   "author": "Kaleb Alebachew",
   "license": "ISC",
