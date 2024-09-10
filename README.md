@@ -5,8 +5,7 @@ This package provides an Express middleware to capture failed requests and retry
 ## Features
 
 - Capture and store failed requests.
-- Automatically replay failed requests with retry logic.
-- Supports retry with exponential backoff.
+- Automatically replay failed requests 
 
 ## Installation
 
