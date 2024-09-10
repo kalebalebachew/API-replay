@@ -27,7 +27,7 @@ app.post('/api/test-endpoint', requestReplayMiddleware, (req, res) => {
 ``` javascript
 import { replayFailedRequests } from 'replay-api';
 
-replayFailedRequests({ retryLimit: 5 }); // you should configure your retry limit tho
+replayFailedRequests({ retryLimit: 5, retryDelay: 1000 }); // you should configure your retry limit and retry delay tho
 ```
 
 If you have anything to say or questions reach out kalebalebachew4@gmai.com
