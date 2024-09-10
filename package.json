@@ -9,7 +9,10 @@
   },
   "keywords": [
     "api",
-    "http"
+    "http",
+    "request",
+    "request-replay"
+
   ],
   "author": "Kaleb Alebachew",
   "license": "ISC",
