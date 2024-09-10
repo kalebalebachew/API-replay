@@ -12,7 +12,7 @@
   ],
   "author": "Kaleb Alebachew",
   "license": "ISC",
-  "description": "",
+  "description": "A middleware and service for retrying failed API requests with customizable replay functionality",
   "dependencies": {
     "axios": "^1.7.7",
     "express": "^4.19.2",

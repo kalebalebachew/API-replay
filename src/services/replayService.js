@@ -8,7 +8,7 @@ import logger from '../../helpers/logger.js';
  * @param {number} retryLimit - Optional limit for the number of retries before giving up.
  * @param {Function} customHandler - Optional custom handler for request replay (e.g., axios or another library).
  */
-export const replayFailedRequests = async ({ baseURL = "http://localhost:3005", retryLimit = 3, customHandler = axios } = {}) => {
+export const replayFailedRequests = async ({ retryLimit = 5 } = {}) => {
   const failedRequests = getFailedRequests(); 
 
   if (failedRequests.length === 0) {
@@ -19,30 +19,28 @@ export const replayFailedRequests = async ({ baseURL = "http://localhost:3005", 
   logger.info(`Found ${failedRequests.length} failed requests to replay.`);
 
   for (const request of failedRequests) {
-    try {
-      let retries = request.retries || 0;
-      
-      if (retries >= retryLimit) {
-        logger.error(`Max retry limit reached for ${request.url}. Removing from queue.`);
-        removeRequestFromQueue(request);
-        continue; 
-      }
+    let retries = request.retries || 0;
 
-      logger.info(`Replaying request: ${request.method} ${baseURL}${request.url}`);
-      await customHandler({
+    if (retries >= retryLimit) {
+      logger.error(`Max retry limit reached for ${request.fullUrl}. Removing from queue.`);
+      removeRequestFromQueue(request);
+      continue; 
+    }
+
+    try {
+      logger.info(`Replaying request: ${request.method} ${request.fullUrl}`);
+      await axios({
         method: request.method,
-        url: `${baseURL}${request.url}`,
+        url: request.fullUrl, 
         headers: request.headers,
         data: request.body,
       });
 
-      logger.info(`Successfully replayed request to ${request.url}`);
-      removeRequestFromQueue(request);
+      logger.info(`Successfully replayed request to ${request.fullUrl}`);
+      removeRequestFromQueue(request); 
     } catch (error) {
-      logger.error(`Failed to replay request to ${request.url}: ${error.message}`);
-      
+      logger.error(`Failed to replay request to ${request.fullUrl}: ${error.message}`);
       request.retries = (request.retries || 0) + 1;
-
     }
   }
 };

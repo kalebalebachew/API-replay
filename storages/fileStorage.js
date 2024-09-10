@@ -36,6 +36,7 @@ export const storeFailedRequest = (req) => {
     url: req.originalUrl,
     headers: req.headers,
     body: req.body,
+    fullUrl: `${req.protocol}://${req.get('host')}${req.originalUrl}`,
     timestamp: Date.now(),
     retries: 0,
   };
